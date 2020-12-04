@@ -90,13 +90,15 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
           backgroundColor: Colors.white,
           title: CustomAppBar.setTitleAppBar(Dictionary.news),
         ),
-        body: widget.model == null ? state is NewsDetailLoading
-            ? _buildLoading(context)
-            : state is NewsDetailLoaded
-                ? _buildContent(context, state.record)
-                : state is NewsDetailFailure
-                    ? ErrorContent(error: state.error)
-                    : Container() : _buildContent(context, widget.model));
+        body: widget.model == null
+            ? state is NewsDetailLoading
+                ? _buildLoading(context)
+                : state is NewsDetailLoaded
+                    ? _buildContent(context, state.record)
+                    : state is NewsDetailFailure
+                        ? ErrorContent(error: state.error)
+                        : Container()
+            : _buildContent(context, widget.model));
   }
 
   _buildLoading(BuildContext context) {
@@ -263,7 +265,8 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                                         fontSize: 12.0,
                                         fontFamily: FontsFamily.lato),
                                   ),
-                                  _newsType != NewsType.articlesImportantInfo && data.newsChannel.isNotEmpty
+                                  _newsType != NewsType.articlesImportantInfo &&
+                                          data.newsChannel.isNotEmpty
                                       ? Text(
                                           unixTimeStampToDateTime(
                                               data.publishedAt),
@@ -369,7 +372,6 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                           ],
                         )
                       : Container(),
-
                   SizedBox(height: 25.0),
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -385,15 +387,10 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0)),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    NewsListScreen(news: widget.news)));
+                        Navigator.of(context).pop(true);
                       },
                     ),
                   ),
-//                        _latestNews(state),
                   SizedBox(height: 10.0)
                 ],
               ),

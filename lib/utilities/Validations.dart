@@ -26,11 +26,11 @@ class Validations {
   }
 
   static String nikValidation(String val) {
+    if (val.isEmpty) return Dictionary.errorEmptyNIK;
+
     if (val.length > 16) return Dictionary.errorMaximumNIK;
 
     if (val.length < 16) return Dictionary.errorMinimumNIK;
-
-    if (val.isEmpty) return Dictionary.errorEmptyNIK;
 
     return null;
   }

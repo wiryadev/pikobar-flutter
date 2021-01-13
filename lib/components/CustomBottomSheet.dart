@@ -186,10 +186,12 @@ void showTextBottomSheet(
 }
 
 Future<void> showWidgetBottomSheet(
-    {@required BuildContext context, Widget child, bool isScrollControlled = false}) async {
+    {@required BuildContext context, @required Widget child, bool isScrollControlled = false, bool isDraggable = true, bool isDismissible = true}) async {
   return await showModalBottomSheet(
       context: context,
       isScrollControlled: isScrollControlled,
+      isDismissible: isDismissible,
+      enableDrag: isDraggable,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

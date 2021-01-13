@@ -30,6 +30,7 @@ import 'package:pikobar_flutter/screens/myAccount/OnboardLoginScreen.dart';
 import 'package:pikobar_flutter/screens/selfReport/ContactHistoryScreen.dart';
 import 'package:pikobar_flutter/screens/selfReport/EducationListScreen.dart';
 import 'package:pikobar_flutter/screens/selfReport/SelfReportOption.dart';
+import 'package:pikobar_flutter/screens/selfReport/travelHistory/TravelHistoryScreen.dart';
 import 'package:pikobar_flutter/utilities/AnalyticsHelper.dart';
 import 'package:pikobar_flutter/utilities/FirestoreHelper.dart';
 import 'package:pikobar_flutter/utilities/HealthCheck.dart';
@@ -328,7 +329,7 @@ class _SelfReportScreenState extends State<SelfReportScreen> {
                       title: Dictionary.historyTravel,
                       length: 2,
                       onPressedEnable: () {
-                        if (latLng == null ||
+                        /*if (latLng == null ||
                             addressMyLocation == '-' ||
                             addressMyLocation.isEmpty ||
                             addressMyLocation == null) {
@@ -338,10 +339,10 @@ class _SelfReportScreenState extends State<SelfReportScreen> {
                               toastLength: Toast.LENGTH_LONG,
                               gravity: ToastGravity.BOTTOM,
                               fontSize: 16.0);
-                        } else {
+                        } else {*/
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ContactHistoryScreen()));
-                        }
+                              builder: (context) => TravelHistoryScreen()));
+                        //}
                       },
                       onPressedDisable: () {
                         if (snapshot.connectionState == ConnectionState.done &&

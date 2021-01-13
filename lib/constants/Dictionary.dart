@@ -115,6 +115,7 @@ class Dictionary {
   static String shareLocation = 'Bagikan Lokasi';
   static String send = 'Kirim';
   static String skip = 'Skip';
+  static String activateGPS = 'Aktifkan GPS';
 
   // Error messages
   static String errorConnection = 'Periksa kembali koneksi Internet';
@@ -403,7 +404,11 @@ class Dictionary {
   static const String hintFeedbackField = 'Kirimkan tanggapan Anda di sini...';
   static const String nspSuccessTitle = 'Terima Kasih Atas Tanggapannya';
   static const String nspSuccessDesc = 'Masukkan Anda telah kami terima. Terima kasih telah membantu kami agar Jawa Barat lebih baik lagi';
-  
+
+  // Travel History
+  static const String activateLocation = 'Aktifkan Lokasi (GPS) pada pengaturan perangkat Anda';
+  static const String permissionLocationAgreement2 = '* Untuk akses data yang lebih akurat, disarankan untuk mengaktifkan GPS pada perangkat Anda\n\n* Jangan khawatir, data Anda akan kami jaga. Anda setuju untuk membagikan lokasi Anda?';
+
    //Shared Preference Label Name
   static const String labelInfoGraphic = 'labelnewinfographic';
   static const String labelNews = 'labellatestnews';

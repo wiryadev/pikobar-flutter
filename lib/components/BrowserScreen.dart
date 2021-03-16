@@ -50,11 +50,9 @@ class _BrowserScreenState extends State<BrowserScreen> {
             Expanded(
               child: Container(
                 child: InAppWebView(
-                  initialUrl: widget.url,
-                  initialHeaders: {},
+                  initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
                   initialOptions: InAppWebViewGroupOptions(
                       crossPlatform: InAppWebViewOptions(
-                        debuggingEnabled: true,
                         useShouldOverrideUrlLoading: true,
                       ),
                       android: AndroidInAppWebViewOptions()),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:apple_sign_in/apple_sign_in.dart';
+import 'package:apple_sign_in/apple_sign_in.dart' as apple;
 import 'package:apple_sign_in/scope.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -23,7 +23,7 @@ enum Auth { login, logout }
 class AuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   Future<UserModel> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -75,15 +75,15 @@ class AuthRepository {
     /// Perform the sign-in request
     /// the requestedScopes are email and fullName
     /// see: https://developer.apple.com/documentation/authenticationservices/asauthorization/scope
-    final result = await AppleSignIn.performRequests([
-      AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+    final result = await apple.AppleSignIn.performRequests([
+      apple.AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
     ]);
 
     /// Check the result
     /// the three possible cases are [AuthorizationStatus.authorized],
     /// [AuthorizationStatus.error] and [AuthorizationStatus.cancelled].
     switch (result.status) {
-      case AuthorizationStatus.authorized:
+      case apple.AuthorizationStatus.authorized:
         final appleIdCredential = result.credential;
         final oAuthProvider = OAuthProvider('apple.com');
         final credential = oAuthProvider.credential(
@@ -128,12 +128,12 @@ class AuthRepository {
             photoUrlFull: currentUser.photoURL,
             phoneNumber: currentUser.phoneNumber);
 
-      case AuthorizationStatus.error:
+      case apple.AuthorizationStatus.error:
         throw PlatformException(
             code: 'ERROR_AUTHORIZATION_DENIED',
             message: result.error.toString());
 
-      case AuthorizationStatus.cancelled:
+      case apple.AuthorizationStatus.cancelled:
         throw PlatformException(
             code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
     }

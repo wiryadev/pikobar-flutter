@@ -186,15 +186,22 @@ class LocationService {
   }
 
   static Future<bool> _isMonitoredUser() async {
-    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    final RemoteConfig remoteConfig = RemoteConfig.instance;
     remoteConfig.setDefaults(<String, dynamic>{
       FirebaseConfig.geolocationEnabled: true,
     });
 
     try {
-      await remoteConfig.fetch(expiration: Duration(minutes: 0));
-      await remoteConfig.activateFetched();
-    } catch (exception) {}
+      // Using 5 minutes duration to force fetching from remote server.
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: Duration(seconds: 10),
+        minimumFetchInterval: Duration(minutes: 5),
+      ));
+      await remoteConfig.fetchAndActivate();
+    } catch (exception) {
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
+    }
 
     bool geolocationEnabled =
         remoteConfig.getBool(FirebaseConfig.geolocationEnabled) ?? true;

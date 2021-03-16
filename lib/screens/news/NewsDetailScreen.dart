@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/style.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -327,7 +329,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                             fontSize: FontSize(14.0),
                             textAlign: TextAlign.start),
                       },
-                      onLinkTap: (url) {
+                      onLinkTap: (String url, RenderContext context, Map<String, String> attributes, dom.Element element) {
                         _launchURL(url);
                       })
                 ],

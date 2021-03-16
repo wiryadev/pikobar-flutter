@@ -2,7 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pikobar_flutter/constants/Dictionary.dart';
 
 class HealthCheck {
-  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   /// Function for check user health status
   bool isUserHealty(String healthStat) {

@@ -95,7 +95,7 @@ class ProfileRepository {
     await Future.delayed(Duration(seconds: 1));
 
     final response = await http
-        .get('${EndPointPath.getCityList}/jabar?level=kabupaten',
+        .get(Uri.parse('${EndPointPath.getCityList}/jabar?level=kabupaten'),
             headers: await HttpHeaders.headers())
         .timeout(const Duration(seconds: 10));
 

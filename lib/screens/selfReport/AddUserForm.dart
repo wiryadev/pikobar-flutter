@@ -469,7 +469,6 @@ class _AddUserFormScreenState extends State<AddUserFormScreen> {
       title: Dictionary.titleInfoTextAnnouncement,
       content: Dictionary.otherReportAnnouncement,
       context: context,
-      onLinkTap: (url) {},
     );
   }
 

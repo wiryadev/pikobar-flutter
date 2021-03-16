@@ -45,7 +45,7 @@ class IndexScreen extends StatefulWidget {
 }
 
 class IndexScreenState extends State<IndexScreen> {
-  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   static FirebaseInAppMessaging firebaseInAppMsg = FirebaseInAppMessaging();
 
   int _currentIndex = 0;
@@ -73,8 +73,23 @@ class IndexScreenState extends State<IndexScreen> {
     super.initState();
   }
 
+  ///TODO: Implement handle background notification
+  /// https://firebase.flutter.dev/docs/messaging/usage/
+  ///
   initializeFirebaseMessaging() {
-    _firebaseMessaging.configure(
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        NotificationHelper().showNotification(
+            message.notification.title, message.notification.body,
+            payload:
+            jsonEncode(Platform.isAndroid ? message.data : message),
+            onSelectNotification: onSelectNotification);
+      }
+    });
+    /*_firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
         if (message['notification'] != null) {
@@ -101,14 +116,17 @@ class IndexScreenState extends State<IndexScreen> {
         _actionNotification(
             jsonEncode(Platform.isAndroid ? message['data'] : message));
       },
-    );
+    );*/
 
     // _firebaseMessaging.getToken().then((token) => print(token));
 
     _firebaseMessaging.subscribeToTopic('general');
 
-    _firebaseMessaging.requestNotificationPermissions(
-        IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
     firebaseInAppMsg.setAutomaticDataCollectionEnabled(true);
   }

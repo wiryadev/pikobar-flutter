@@ -1111,15 +1111,22 @@ class _EditState extends State<Edit> {
 
   // Function to call remote config
   Future<RemoteConfig> setupRemoteConfig() async {
-    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    final RemoteConfig remoteConfig = RemoteConfig.instance;
     remoteConfig.setDefaults(<String, dynamic>{
       FirebaseConfig.otpEnabled: false,
     });
 
     try {
-      await remoteConfig.fetch(expiration: Duration(minutes: 5));
-      await remoteConfig.activateFetched();
-    } catch (exception) {}
+      // Using 5 minutes duration to force fetching from remote server.
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: Duration(seconds: 10),
+        minimumFetchInterval: Duration(minutes: 5),
+      ));
+      await remoteConfig.fetchAndActivate();
+    } catch (exception) {
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
+    }
 
     return remoteConfig;
   }

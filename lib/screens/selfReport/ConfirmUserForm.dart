@@ -106,7 +106,7 @@ class _ConfirmUserFormState extends State<ConfirmUserForm> {
         create: (BuildContext context) =>
             _addOtherSelfReportBloc = AddOtherSelfReportBloc(),
         child: BlocListener(
-          cubit: _addOtherSelfReportBloc,
+          bloc: _addOtherSelfReportBloc,
           listener: (context, state) {
             if (state is AddOtherSelfReportSaved) {
               AnalyticsHelper.setLogEvent(Analytics.addOtherUserSaved);

@@ -142,7 +142,7 @@ class _SelfReportFormScreenState extends State<SelfReportFormScreen> {
             )
           ],
           child: BlocListener(
-              cubit: _dailyReportBloc,
+              bloc: _dailyReportBloc,
               listener: (BuildContext context, dynamic state) {
                 if (state is DailyReportSaved) {
                   AnalyticsHelper.setLogEvent(Analytics.dailyReportSaved);

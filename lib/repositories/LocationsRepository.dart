@@ -44,7 +44,7 @@ class LocationsRepository {
         var requestBody = json.encode(parameterData);
 
         final response = await http
-            .patch('$kUrlTracking/user/location',
+            .patch(Uri.parse('$kUrlTracking/user/location'),
             headers: await HttpHeaders.headers(token: null),
             body: requestBody)
             .timeout(Duration(seconds: 10));

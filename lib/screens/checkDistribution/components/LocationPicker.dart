@@ -156,17 +156,14 @@ class _LocationPickerState extends State<LocationPicker> {
   }
 
   void _updatePosition(CameraPosition _position) {
-    Position newMarkerPosition = Position(
-        latitude: _position.target.latitude,
-        longitude: _position.target.longitude);
     Marker marker = markers["new"];
 
     setState(() {
       markers["new"] = marker.copyWith(
           positionParam:
-              LatLng(newMarkerPosition.latitude, newMarkerPosition.longitude));
+              LatLng(_position.target.latitude, _position.target.longitude));
       _currentPosition =
-          LatLng(newMarkerPosition.latitude, newMarkerPosition.longitude);
+          LatLng(_position.target.latitude, _position.target.longitude);
     });
   }
 

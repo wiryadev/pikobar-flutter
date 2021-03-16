@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/style.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:pikobar_flutter/components/DialogNPS.dart';
 import 'package:pikobar_flutter/components/RoundedButton.dart';
 import 'package:pikobar_flutter/constants/Analytics.dart';
@@ -175,7 +177,7 @@ void showTextBottomSheet(
                       fontSize: FontSize(12.0),
                       color: ColorBase.veryDarkGrey)
                 },
-                onLinkTap: (url) {
+                onLinkTap: (String url, RenderContext ctx, Map<String, String> attributes, dom.Element element) {
                   Navigator.of(context).pop();
                   openChromeSafariBrowser(url: url);
                 },

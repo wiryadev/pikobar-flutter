@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/style.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:pikobar_flutter/components/CollapsingAppbar.dart';
 import 'package:pikobar_flutter/constants/Analytics.dart';
 import 'package:pikobar_flutter/constants/Colors.dart';
@@ -105,7 +107,7 @@ class _TermsConditionsPageState extends State<TermsConditionsPage> {
                           fontFamily: FontsFamily.lato,
                           textAlign: TextAlign.justify),
                     },
-                    onLinkTap: (url) {
+                    onLinkTap: (String url, RenderContext context, Map<String, String> attributes, dom.Element element) {
                       _launchURL(url);
                     }),
               ),

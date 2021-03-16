@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:flutter_html/style.dart';
 import 'package:pikobar_flutter/blocs/faq/Bloc.dart';
 import 'package:pikobar_flutter/blocs/remoteConfig/Bloc.dart';
@@ -35,7 +37,6 @@ class FaqScreen extends StatefulWidget {
 
 class _FaqScreenState extends State<FaqScreen> {
   FaqListBloc _faqListBloc = FaqListBloc();
-  RemoteConfigBloc _remoteConfigBloc;
   TextEditingController _searchController = TextEditingController();
   ScrollController _scrollController;
   String searchQuery = '';
@@ -73,8 +74,7 @@ class _FaqScreenState extends State<FaqScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider<RemoteConfigBloc>(
-          create: (BuildContext context) =>
-              _remoteConfigBloc = RemoteConfigBloc()..add(RemoteConfigLoad()),
+          create: (BuildContext context) => RemoteConfigBloc()..add(RemoteConfigLoad()),
           child: BlocBuilder<RemoteConfigBloc, RemoteConfigState>(
               builder: (context, remoteState) {
             if (remoteState is RemoteConfigLoaded) {
@@ -116,7 +116,8 @@ class _FaqScreenState extends State<FaqScreen> {
                   scrollController: _scrollController,
                   onTap: (index) {
                     setState(() {});
-                    _scrollController.jumpTo(_scrollController.position.minScrollExtent);
+                    _scrollController
+                        .jumpTo(_scrollController.position.minScrollExtent);
                     indexTab = index;
                     _faqListBloc.add(FaqListLoad(
                         faqCollection: kFaq,
@@ -278,17 +279,21 @@ class _FaqScreenState extends State<FaqScreen> {
                               color: Colors.grey[600],
                               fontSize: FontSize(14.0),
                               textAlign: TextAlign.start),
-                          'li': Style(margin: const EdgeInsets.only(bottom: 10.0))
+                          'li':
+                              Style(margin: const EdgeInsets.only(bottom: 10.0))
                         },
-                        onLinkTap: (url) {
+                        onLinkTap: (String url,
+                            RenderContext context,
+                            Map<String, String> attributes,
+                            dom.Element element) {
                           launchExternal(url);
                         },
                       ),
                     ),
                     builder: (_, collapsed, expanded) {
                       return Padding(
-                        padding:
-                            const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                        padding: const EdgeInsets.only(
+                            left: 10, right: 10, bottom: 10),
                         child: Expandable(
                           collapsed: collapsed,
                           expanded: expanded,

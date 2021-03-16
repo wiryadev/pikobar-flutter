@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/html_parser.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
 import 'package:pikobar_flutter/components/Announcement.dart';
 import 'package:pikobar_flutter/components/CustomBottomSheet.dart';
@@ -155,7 +157,7 @@ class _RapidTestDetailState extends State<RapidTestDetail> {
           : Dictionary.titleInfoTextAnnouncement,
       content: dataAnnouncement[i]['content'],
       context: context,
-      onLinkTap: (url) {
+      onLinkTap: (String url, RenderContext context, Map<String, String> attributes, dom.Element element) {
         _launchURL(
             url,
             dataAnnouncement[i]['title'] != null

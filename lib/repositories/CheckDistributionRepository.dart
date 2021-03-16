@@ -12,7 +12,7 @@ class CheckDistributionRepository {
   Future<CheckDistributionModel> fetchRecord(lat, long) async {
 
     final response = await http
-        .get('${EndPointPath.checkDistribution}?long=$long&lat=$lat',
+        .get(Uri.parse('${EndPointPath.checkDistribution}?long=$long&lat=$lat'),
             headers: await HttpHeaders.headers())
         .timeout(const Duration(seconds: 10));
 

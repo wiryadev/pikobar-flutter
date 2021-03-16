@@ -11,7 +11,7 @@ class RapidTestReposity {
     await Future.delayed(Duration(seconds: 1));
 
     final response = await http
-        .get('${EndPointPath.rapidTest}',
+        .get(Uri.parse('${EndPointPath.rapidTest}'),
             headers: await HttpHeaders.headers())
         .timeout(const Duration(seconds: 10));
 
